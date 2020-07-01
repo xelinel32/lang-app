@@ -12,6 +12,8 @@
 <script>
 import vHeader from '@/components/v-header';
 import vFooter from '@/components/v-footer';
+import fb from 'firebase/app';
+import 'firebase/auth';
 export default {
   name: 'App',
   components: {

@@ -8,6 +8,9 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text>
+            <v-alert type="warning" v-if="error != null">
+              {{ error }}
+            </v-alert>
             <v-form>
               <v-text-field
                 label="Login"
@@ -30,7 +33,13 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn tile class=" primary white--text pa-2">Login</v-btn>
+            <v-btn
+              tile
+              class=" primary white--text pa-2"
+              :disabled="disable"
+              @click.prevent="login"
+              >Login</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>
@@ -45,6 +54,29 @@ export default {
     email: '',
     password: '',
   }),
+  computed: {
+    error() {
+      return this.$store.getters.GET_ERROR;
+    },
+    disable() {
+      return this.$store.getters.GET_PROCESSING;
+    },
+    isAuth() {
+      return this.$store.getters.GET_INFO;
+    },
+  },
+  methods: {
+    async login() {
+      this.email = this.password = '';
+      try {
+        await this.$store.dispatch('LOGIN', {
+          email: this.email,
+          password: this.password,
+        });
+        this.$router.push('/');
+      } catch (e) {}
+    },
+  },
 };
 </script>
 

@@ -7,11 +7,11 @@ import '@babel/polyfill';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import fb from 'firebase/app';
-import 'firebase/auth'
+import 'firebase/auth';
 
 Vue.config.productionTip = false;
 
-const firebaseConfig = {
+fb.initializeApp({
   apiKey: 'AIzaSyANBvw9WndqD3p_wXybj0Sily85AsqSkRs',
   authDomain: 'lang-app-2cc42.firebaseapp.com',
   databaseURL: 'https://lang-app-2cc42.firebaseio.com',
@@ -19,13 +19,17 @@ const firebaseConfig = {
   storageBucket: 'lang-app-2cc42.appspot.com',
   messagingSenderId: '251359115813',
   appId: '1:251359115813:web:b147ea7cf108fbaefa1dcc',
-};
+});
 
-fb.initializeApp(firebaseConfig);
+let app;
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(App),
-}).$mount('#app');
+fb.auth().onAuthStateChanged(() => {
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      vuetify,
+      render: (h) => h(App),
+    }).$mount('#app');
+  }
+});
