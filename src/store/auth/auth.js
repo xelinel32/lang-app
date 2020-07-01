@@ -1,24 +1,15 @@
 import fb from 'firebase/app';
 import 'firebase/auth';
 export default {
-  state: {
-    user: {
-      isAuth: false,
-      uid: null,
-    },
-  },
+  state: {},
   mutations: {},
   actions: {
-    async SIGNUP({ commit }, { email, password }) {
-      await fb
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-          console.log(user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    async LOGIN({ dispatch, commit }, { email, password }) {
+      try {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+      } catch (error) {
+        throw error;
+      }
     },
   },
   getters: {},
