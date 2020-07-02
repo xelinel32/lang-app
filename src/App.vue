@@ -18,8 +18,8 @@ export default {
   name: 'App',
   components: {
     vHeader,
-    vFooter,
-  },
+    vFooter
+  }
 };
 </script>
 <style lang="scss"></style>
